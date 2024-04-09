@@ -1,0 +1,62 @@
+import time
+import random
+
+# Top 100 English words
+top_100_words = [
+    "the", "be", "to", "of", "and", "a", "in", "that", "have", "I",
+    "it", "for", "not", "on", "with", "he", "as", "you", "do", "at",
+    "this", "but", "his", "by", "from", "they", "we", "say", "her", "she",
+    "or", "an", "will", "my", "one", "all", "would", "there", "their", "what",
+    "so", "up", "out", "if", "about", "who", "get", "which", "go", "me",
+    "when", "make", "can", "like", "time", "no", "just", "him", "know", "take",
+    "people", "into", "year", "your", "good", "some", "could", "them", "see", "other",
+    "than", "then", "now", "look", "only", "come", "its", "over", "think", "also",
+    "back", "after", "use", "two", "how", "our", "work", "first", "well", "way",
+    "even", "new", "want", "because", "any", "these", "give", "day", "most", "us"
+]
+
+def generate_random_text(word_count):
+    """Generate a random string of given length."""
+    words = random.sample(top_100_words, k=word_count)
+    return ' '.join(words)
+
+def typing_test(word_count):
+    """Run a typing test for the specified number of words."""
+    print("Welcome to the typing test!")
+    print(f"Type the following {word_count} words:")
+    
+    words = generate_random_text(word_count)  # Generate random text
+    print(words)
+    
+    start_time = time.time()
+    input_text = input("Type the text above and press Enter: ")
+    end_time = time.time()
+    
+    elapsed_time = end_time - start_time
+    minutes = elapsed_time / 60
+    
+    # Calculate words per minute (WPM)
+    input_word_count = len(input_text.split())
+    wpm = input_word_count / minutes if minutes > 0 else 0
+    
+    # Calculate characters per minute (CPM)
+    char_count = len(input_text)
+    cpm = char_count / minutes if minutes > 0 else 0
+    
+    # Calculate accuracy
+    correct_words = sum(1 for w1, w2 in zip(input_text.split(), words.split()) if w1 == w2)
+    accuracy = (correct_words / word_count) * 100 if word_count > 0 else 0
+    
+    print("\nTest Results:")
+    print(f"Words per minute (WPM): {wpm:.2f}")
+    print(f"Characters per minute (CPM): {cpm:.2f}")
+    print(f"Accuracy: {accuracy:.2f}%")
+    
+    choice = input("\nDo you want to start another test? (yes/no): ")
+    if choice.lower() == 'yes':
+        word_count = int(input("Enter the number of words for the next test: "))
+        typing_test(word_count)
+
+# Main program
+word_count = int(input("Enter the number of words for the typing test: "))
+typing_test(word_count)
