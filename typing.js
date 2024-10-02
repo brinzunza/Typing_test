@@ -29,14 +29,14 @@ Typing Test Game Logic:
 
 7. Timer and Scoring:
    - A 30-second timer starts on the first keystroke.
-   - At the end, WPM is calculated based on correctly typed words.
+   - At the end, WPM and accuracy is calculated based on correctly typed words.
 
 Key Functions:
 - newGame(): Sets up a new game session.
 - handleLetterInput(): Processes each letter typed.
 - handleBackspaceInput(): Manages backspace functionality.
 - handleSpaceInput(): Handles moving to the next word.
-- getWpm(): Calculates the final Words Per Minute score.
+- getWpmAndAccuracy(): Calculates the final Words Per Minute score along with typing accuracy.
 - gameOver(): Ends the game and displays the result.
 
 The game extensively uses DOM manipulation and CSS classes to provide 
@@ -89,6 +89,7 @@ function newGame() {
   totalKeystrokes = 0;
 }
 
+// calculate user speed (wpm) and accuracy (%)
 function getWpmAndAccuracy() {
   const words = [...document.querySelectorAll('.word')];
   const lastTypedWord = document.querySelector('.word.current');
